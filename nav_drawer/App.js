@@ -13,6 +13,13 @@ function HomeScreen({navigation}) {
   const actualizarContadorHome = () => {
     setContador(contador+1);
   };
+  
+  const unsubscribe = navigation.addListener('focus', () =>{
+    actualizarContadorHome()
+    
+    return unsubscribe
+  },[navigation]);
+  
   useEffect( ()=> {
     setContador(contador+1);
   },[]);
@@ -20,7 +27,7 @@ function HomeScreen({navigation}) {
     <View style={ styles.topBanner }>
       <Text>Home Screen</Text>
       <Button title='Go to Details' onPress={ () => navigation.navigate('Details',{texto: "No details were found"}) }/>
-      <Button title='Count 1!' onPress={ () => {navigation.navigate('Counter'); actualizarContadorHome()} }/>
+      <Button title='Count +1!' onPress={ () => {actualizarContadorHome()} }/>
       <Text>Renderizaciones: {contador}</Text>
     </View>
   );
@@ -38,6 +45,8 @@ function DetailsScreen({route, navigation}) {
 }
 
 function CounterScreen({ navigation }) {
+
+  
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button onPress={() => navigation.goBack()} title="Go back home" />
