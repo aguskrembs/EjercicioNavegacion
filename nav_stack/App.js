@@ -15,12 +15,12 @@ function HomeScreen({navigation}) {
   };
   useEffect( ()=> {
     setContador(contador+1);
-  });
+  },[]);
   return (
     <View style={ styles.topBanner }>
       <Text>Home Screen</Text>
       <Button title='Go to Details' onPress={ () => navigation.navigate('Details',{texto: "No details were found"}) }/>
-      <Button title='Count 1!' onPress={ () => {navigation.navigate('Counter'); } }/>
+      <Button title='Count 1!' onPress={ () => {navigation.navigate('Counter'); actualizarContadorHome()} }/>
       <Text>Renderizaciones: {contador}</Text>
     </View>
   );
