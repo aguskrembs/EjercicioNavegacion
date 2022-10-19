@@ -13,14 +13,21 @@ function HomeScreen({navigation}) {
   const actualizarContadorHome = () => {
     setContador(contador+1);
   };
+  
+  const unsubscribe = navigation.addListener('focus', () =>{
+    actualizarContadorHome()
+    
+    return unsubscribe
+  },[navigation]);
+  
   useEffect( ()=> {
     setContador(contador+1);
-  });
+  },[]);
   return (
     <View style={ styles.topBanner }>
       <Text>Home Screen</Text>
       <Button title='Go to Details' onPress={ () => navigation.navigate('Details',{texto: "No details were found"}) }/>
-      <Button title='Count 1!' onPress={ () => {navigation.navigate('Counter'); } }/>
+      <Button title='Count +1!' onPress={ () => {actualizarContadorHome()} }/>
       <Text>Renderizaciones: {contador}</Text>
     </View>
   );
@@ -38,6 +45,8 @@ function DetailsScreen({route, navigation}) {
 }
 
 function CounterScreen({ navigation }) {
+
+  
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button onPress={() => navigation.goBack()} title="Go back home" />
@@ -54,17 +63,17 @@ function App() {
   return (
     <NavigationContainer>
       
-      <Stack.Navigator>
+      {/* <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Counter" component={CounterScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
 
-      {/* <Drawer.Navigator>
+      <Drawer.Navigator>
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Counter" component={CounterScreen} />
         <Drawer.Screen name="Details" component={DetailsScreen} />
-      </Drawer.Navigator> */}
+      </Drawer.Navigator>
 
     </NavigationContainer>
   );
